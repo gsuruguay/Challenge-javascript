@@ -1,0 +1,16 @@
+{
+  "name": "challenge-alkemy-js",
+  "version": "1.0.0",
+  "description": "ABM de operaciones",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "author": "Guillermo Suruguay",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-myconnection": "^1.0.4",
+    "mysql": "^2.18.1"
+  }
+}
