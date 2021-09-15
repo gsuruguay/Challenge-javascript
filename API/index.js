@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
             let balance = amountOperations.entry - amountOperations.egress;
             console.log(amountOperations);
             console.log(balance);
-            
+
             res.json({
                 operation,
                 amountOperations,
@@ -77,6 +77,24 @@ app.post("/createOperation", (req, res) => {
 app.put("/setOperation/:id", (req, res) => {
     const { id } = req.params
     const setOperation = req.body
+
+    req.getConnection((error, conn) => {
+        if (error) {
+            res.status(500).send('Connection error')
+        }
+        conn.query('UPDATE operations set ? where id = ?', [setOperation, id], (err, operation) => {
+            if (err) {
+                res.status(400).json({
+                    msg: 'There was an error modifying the operation',
+                    err
+                })
+            }
+            console.log(operation);
+            res.status(200).json({
+                msg: 'Successfully modified operation'
+            })
+        })
+    })
 })
 
 
