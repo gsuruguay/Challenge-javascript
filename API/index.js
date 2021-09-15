@@ -20,8 +20,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.json({
-        msg: "Este es el home"
+    req.getConnection((error, conn) => {
+        if (error) {
+            res.status(500).send('Connection error')
+        }
+        conn.query('SELECT concept, amount, date, type FROM operations', (err, operation) => {
+            if (err) {
+                res.status(400).json({
+                    msg: 'There was an error consulting the database',
+                    err
+                })
+            }
+            console.log(operation)
+
+            let amountOperations = operation.reduce((count, elem) => {
+                count[elem.type] = (count[elem.type] || 0) + elem.amount
+                return count
+            }, {});
+            let balance = amountOperations.entry - amountOperations.egress;
+            console.log(amountOperations);
+            console.log(balance);
+            
+            res.json({
+                operation,
+                amountOperations,
+                balance
+            })
+        })
     })
 })
 
@@ -38,7 +63,7 @@ app.get("/operations", (req, res) => {
                 })
             }
             console.log(operation)
-            res.json({ 
+            res.json({
                 operation
             })
         })
