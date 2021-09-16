@@ -97,6 +97,27 @@ app.put("/setOperation/:id", (req, res) => {
     })
 })
 
+app.delete("/deleteOperation/:id", (req, res) => {
+    const { id } = req.params
+
+    req.getConnection((error, conn) => {
+        if (error) {
+            res.status(500).send('Connection error')
+        }
+        conn.query("DELETE FROM operations WHERE id = ?", id , (err, operation) => {
+            if (err) {
+                res.status(400).json({
+                    msg: 'There was an error deleting the operation',
+                    err
+                })
+            }
+            console.log(operation);
+            res.status(200).json({
+                msg: 'Operation removed successfully'
+            })
+        })
+    })
+})
 
 //Starting the server
 app.listen(app.get("port"), () => {
