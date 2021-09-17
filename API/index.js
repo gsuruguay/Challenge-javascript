@@ -24,16 +24,16 @@ app.get("/", (req, res) => {
         if (error) {
             res.status(500).send('Connection error')
         }
-        conn.query('SELECT concept, amount, date, type FROM operations', (err, operation) => {
+        conn.query('SELECT concept, amount, date, type FROM operations', (err, operations) => {
             if (err) {
                 res.status(400).json({
                     msg: 'There was an error consulting the database',
                     err
                 })
             }
-            console.log(operation)
+            console.log(operations)
 
-            let amountOperations = operation.reduce((count, elem) => {
+            let amountOperations = operations.reduce((count, elem) => {
                 count[elem.type] = (count[elem.type] || 0) + elem.amount
                 return count
             }, {});
@@ -41,8 +41,12 @@ app.get("/", (req, res) => {
             console.log(amountOperations);
             console.log(balance);
 
+            //It only shows the first 10 operations
+            let limitOperations = (operations.length > 10) ? operations.slice(0,10) : operations;
+
             res.json({
-                operation,
+                //operations,
+                limitOperations,
                 amountOperations,
                 balance
             })
