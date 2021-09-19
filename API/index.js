@@ -46,7 +46,6 @@ app.get("/", (req, res) => {
             let limitOperations = (operations.length > 10) ? operations.slice(0, 10) : operations;
 
             res.json({
-                //operations,
                 limitOperations,
                 amountOperations,
                 balance
@@ -77,7 +76,32 @@ app.get("/operations", (req, res) => {
 
 app.post("/createOperation", (req, res) => {
     const newOperation = req.body;
-
+    if (!utils.isValidFormCreate(newOperation)) {
+        console.log("fallo el formulario de create");
+        res.status(400).json({
+            msg: "The form contains incorrect data"
+        })
+    } else {
+        req.getConnection((error, connection) => {
+            if (error) {
+                res.status(500).send('Connection error');
+                return
+            }
+            connection.query('INSERT INTO operations SET ?', newOperation, (err, operation) => {
+                if (err) {
+                    res.status(400).json({
+                        msg: 'There was an error saving the operation',
+                        err
+                    })
+                    return
+                }
+                console.log(operation);
+                res.status(200).json({
+                    msg: 'Operation saved successfully'
+                })
+            })
+        })
+    }
 })
 
 app.put("/setOperation/:id", (req, res) => {
@@ -88,7 +112,7 @@ app.put("/setOperation/:id", (req, res) => {
     if (!utils.isValidFormUpdate(setOperation)) {
         console.log("fallo el formulario");
         res.status(400).json({
-            msg: "El formulario contiene errores"
+            msg: "The form contains incorrect data"
         })
     } else {
         req.getConnection((error, conn) => {
