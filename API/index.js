@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require('mysql');
 const myConnection = require("express-myconnection");
+const utils = require("./utils");
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.get("/", (req, res) => {
         if (error) {
             res.status(500).send('Connection error')
         }
-        conn.query('SELECT concept, amount, date, type FROM operations', (err, operations) => {
+        conn.query('SELECT id, concept, amount, date, type FROM operations', (err, operations) => {
             if (err) {
                 res.status(400).json({
                     msg: 'There was an error consulting the database',
@@ -42,7 +43,7 @@ app.get("/", (req, res) => {
             console.log(balance);
 
             //It only shows the first 10 operations
-            let limitOperations = (operations.length > 10) ? operations.slice(0,10) : operations;
+            let limitOperations = (operations.length > 10) ? operations.slice(0, 10) : operations;
 
             res.json({
                 //operations,
@@ -59,7 +60,7 @@ app.get("/operations", (req, res) => {
         if (error) {
             res.status(500).send('Connection error')
         }
-        conn.query('SELECT concept, amount, date, type FROM operations', (err, operation) => {
+        conn.query('SELECT id, concept, amount, date, type FROM operations', (err, operation) => {
             if (err) {
                 res.status(400).json({
                     msg: 'There was an error consulting the operations',
@@ -76,29 +77,40 @@ app.get("/operations", (req, res) => {
 
 app.post("/createOperation", (req, res) => {
     const newOperation = req.body;
+
 })
 
 app.put("/setOperation/:id", (req, res) => {
     const { id } = req.params
     const setOperation = req.body
+    console.log(setOperation);
 
-    req.getConnection((error, conn) => {
-        if (error) {
-            res.status(500).send('Connection error')
-        }
-        conn.query('UPDATE operations set ? where id = ?', [setOperation, id], (err, operation) => {
-            if (err) {
-                res.status(400).json({
-                    msg: 'There was an error modifying the operation',
-                    err
-                })
+    if (!utils.isValidFormUpdate(setOperation)) {
+        console.log("fallo el formulario");
+        res.status(400).json({
+            msg: "El formulario contiene errores"
+        })
+    } else {
+        req.getConnection((error, conn) => {
+            if (error) {
+                res.status(500).send('Connection error')
+                return
             }
-            console.log(operation);
-            res.status(200).json({
-                msg: 'Successfully modified operation'
+            conn.query('UPDATE operations set ? where id = ?', [setOperation, id], (err, operation) => {
+                if (err) {
+                    res.status(400).json({
+                        msg: 'There was an error modifying the operation',
+                        err
+                    })
+                    return
+                }
+                console.log(operation);
+                res.status(200).json({
+                    msg: 'Successfully modified operation'
+                })
             })
         })
-    })
+    }
 })
 
 app.delete("/deleteOperation/:id", (req, res) => {
@@ -108,7 +120,7 @@ app.delete("/deleteOperation/:id", (req, res) => {
         if (error) {
             res.status(500).send('Connection error')
         }
-        conn.query("DELETE FROM operations WHERE id = ?", id , (err, operation) => {
+        conn.query("DELETE FROM operations WHERE id = ?", id, (err, operation) => {
             if (err) {
                 res.status(400).json({
                     msg: 'There was an error deleting the operation',
