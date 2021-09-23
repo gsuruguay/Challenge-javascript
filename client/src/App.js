@@ -1,13 +1,14 @@
 import React from "react";
 import './App.css';
 import Operation from "./Components/Operation/Operation"
+import Balance from "./Components/Balance/Balance"
 
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = {
     operations: [],
-    amountOperations: {},
-    balance: {}
+    amountOperations: [],
+    balance: []
   }
 
 
@@ -25,17 +26,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <table>
-          <tr>
-            <th>#</th>
-            <th>Concept</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Type</th>
-          </tr>
-          {this.state.operations.map((operation, index) => <Operation operation={operation} index={index}/>)}
-        </table>
+        <Balance amountOperations={this.state.amountOperations} balance={this.state.balance} />
+
+        <Operation operations={this.state.operations} />
       </div>
     );
   }
 }
+
+export default App;
