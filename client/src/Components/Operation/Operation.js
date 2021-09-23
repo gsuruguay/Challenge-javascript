@@ -4,18 +4,15 @@ import React from 'react';
 class Operation extends React.Component {
 
     render() {
-        const { operation } = this.props;
+        const { operation, index } = this.props;
         return (
-            <div key={operation.id} className="cont-card">
-                <div className="card">
-                    <div className="card-body">
-                        <h2>{operation.type}</h2>
-                        <p>{operation.concept}</p>
-                        <p>{operation.date}</p>
-                        <h1 className="price">${operation.amount}</h1>
-                    </div>
-                </div>
-            </div>
+            <tr key={operation.id}>
+                <td>{index + 1}</td>
+                <td>{operation.concept}</td>
+                <td>${operation.amount}</td>
+                <td>{operation.date.slice(0,10)}</td>
+                <td>{operation.type}</td>
+            </tr>
         )
     }
 }

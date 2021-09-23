@@ -15,7 +15,7 @@ export default class App extends React.Component {
   async componentDidMount() {
     const res = await fetch('http://localhost:3333/');
     const data = await res.json();
-    this.setState({ 
+    this.setState({
       operations: data.limitOperations,
       amountOperations: data.amountOperations,
       balance: data.balance
@@ -24,12 +24,17 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="container">        
-            <div className="row">
-                {this.state.operations.map(operation => <Operation operation={operation}/> )}
-            </div>
-        </div>
+      <div className="container">
+        <table>
+          <tr>
+            <th>#</th>
+            <th>Concept</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Type</th>
+          </tr>
+          {this.state.operations.map((operation, index) => <Operation operation={operation} index={index}/>)}
+        </table>
       </div>
     );
   }
