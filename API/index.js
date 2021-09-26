@@ -53,6 +53,7 @@ app.get("/", (req, res) => {
             let limitOperations = (operations.length > 10) ? operations.slice(0, 10) : operations;
 
             res.json({
+                allOperations: operations,
                 limitOperations,
                 amountOperations,
                 balance

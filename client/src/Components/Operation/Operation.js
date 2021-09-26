@@ -4,7 +4,7 @@ import React from 'react';
 class Operation extends React.Component {
 
     render() {
-        const { operations } = this.props;
+        const { limitOperations } = this.props;
         return (
             <table>
                 <thead>
@@ -17,7 +17,7 @@ class Operation extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {operations.map((operation, index) =>
+                    {limitOperations.map((operation, index) =>
                         <tr key={operation.id}>
                             <td>{index + 1}</td>
                             <td>{operation.concept}</td>

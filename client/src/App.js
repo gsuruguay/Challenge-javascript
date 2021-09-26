@@ -1,23 +1,25 @@
 import React from "react";
 import './App.css';
-import Operation from "./Components/Operation/Operation"
-import Balance from "./Components/Balance/Balance"
+import Operation from "./Components/Operation/Operation";
+import Balance from "./Components/Balance/Balance";
+import { Switch, Route } from "react-router-dom";
+
 
 
 class App extends React.Component {
   state = {
-    operations: [],
+    allOperations: [],
+    limitOperations: [],
     amountOperations: [],
     balance: []
   }
 
-
-  //Funcion para traer json de operaciones
   async componentDidMount() {
     const res = await fetch('http://localhost:3333/');
     const data = await res.json();
     this.setState({
-      operations: data.limitOperations,
+      allOperations: data.allOperations,
+      limitOperations: data.limitOperations,
       amountOperations: data.amountOperations,
       balance: data.balance
     })
@@ -26,9 +28,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <Balance amountOperations={this.state.amountOperations} balance={this.state.balance} />
+        <Switch>
+          <Route exact path="/">
+            <Balance amountOperations={this.state.amountOperations} balance={this.state.balance} />
+            <Operation limitOperations={this.state.limitOperations} />
+          </Route>
 
-        <Operation operations={this.state.operations} />
+{/*           <Route exact path="/abm">
+
+          </Route> */}
+        </Switch>
       </div>
     );
   }
