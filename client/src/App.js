@@ -2,6 +2,7 @@ import React from "react";
 import './App.css';
 import Operation from "./Components/Operation/Operation";
 import Balance from "./Components/Balance/Balance";
+import AbmOperation from "./Components/AbmOperations/AbmOperations";
 import { Switch, Route } from "react-router-dom";
 
 
@@ -34,9 +35,9 @@ class App extends React.Component {
             <Operation limitOperations={this.state.limitOperations} />
           </Route>
 
-{/*           <Route exact path="/abm">
-
-          </Route> */}
+          <Route exact path="/abm">
+            <AbmOperation allOperations={this.state.allOperations}/>
+          </Route>
         </Switch>
       </div>
     );
