@@ -12,6 +12,7 @@ class UpdateForm extends React.Component {
                 <input type="date" name="date" onChange={this.props.handleSubmit} value={this.props.valueForm.date}/>
                 <input type="text" name="type" placeholder="Type" onChange={this.props.handleSubmit} readOnly value={this.props.valueForm.type}/>
                 <input type="submit" value="Update"/>
+                <input type="button" value="Cancelar" /* onClick={this.props.changeUpdateForm()} *//>
                 {/* faltaria boton CANCELAR y su funcion para poner el otro form normal */}
             </form>
         )

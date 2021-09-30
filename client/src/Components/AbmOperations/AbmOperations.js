@@ -54,7 +54,7 @@ class AbmOperation extends React.Component {
                 )
                 this.props.peticionGet();
                 this.resetForm();
-                this.changeUpdateForm();
+                this.changeUpdateForm(false);
             }
             console.log(response);
         } catch (error) {
@@ -97,9 +97,9 @@ class AbmOperation extends React.Component {
         })
     }
 
-    changeUpdateForm = ()=>{
+    changeUpdateForm = (estado)=>{
         this.setState({
-            isUpdateForm: !this.state.isUpdateForm
+            isUpdateForm: estado
         })
     }
 
@@ -120,7 +120,7 @@ class AbmOperation extends React.Component {
                         <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm}/>
                     </div>
                     <div className="cont-form">
-                        {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form} />
+                        {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form}  />
                         :
                         <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />                        
                     }
