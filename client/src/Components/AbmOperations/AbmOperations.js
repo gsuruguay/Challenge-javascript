@@ -1,6 +1,7 @@
 import React from 'react';
 import AllOperation from '../AllOperations/AllOperations';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import UpdateForm from '../UpdateForm/UpdateForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
@@ -9,11 +10,13 @@ class AbmOperation extends React.Component {
 
     state = {
         form: {
+            id: "",
             concept: "",
             amount: "",
             date: "",
             type: ""
-        }
+        },
+        isUpdateForm: false
     }
 
     peticionPost = async (e) => {
@@ -39,6 +42,26 @@ class AbmOperation extends React.Component {
         }
     }
 
+    peticionPut = async (e) => {
+        e.preventDefault();
+        let response = await axios.put("http://localhost:3333/setOperation/"+this.state.form.id, this.state.form)
+        try {
+            if (response.status === 200) {
+                Swal.fire(
+                    'Good job!',
+                    'Operation UPDATE successfully!',
+                    'success'
+                )
+                this.props.peticionGet();
+                this.resetForm();
+                this.changeUpdateForm();
+            }
+            console.log(response);
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     handleSubmit = async e => {
         await this.setState({
             form: {
@@ -47,16 +70,36 @@ class AbmOperation extends React.Component {
             }
         });
         console.log(this.state.form);
+        console.log(this.state.isUpdateForm);
     }
 
-    resetForm = ()=>{
+    resetForm = () => {
         this.setState({
-            form:{
+            form: {
+                id: "",
                 concept: "",
                 amount: "",
                 date: "",
                 type: ""
             }
+        })
+    }
+
+    selectOperation = (operation) => {
+        this.setState({
+            form: {
+                id: operation.id,
+                concept: operation.concept,
+                amount: operation.amount,
+                date: operation.date.slice(0, 10),
+                type: operation.type
+            }
+        })
+    }
+
+    changeUpdateForm = ()=>{
+        this.setState({
+            isUpdateForm: !this.state.isUpdateForm
         })
     }
 
@@ -72,12 +115,16 @@ class AbmOperation extends React.Component {
                 <div className="row">
                     <div className="cont-operations">
                         <h3>Entry Operations</h3>
-                        <AllOperation allOperations={entryOperations} />
+                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state}/>
                         <h3>Egress Operations</h3>
-                        <AllOperation allOperations={egressOperations} />
+                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm}/>
                     </div>
                     <div className="cont-form">
-                        <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form}/>
+                        {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form} />
+                        :
+                        <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />                        
+                    }
+                        
                     </div>
                 </div>
             </div>

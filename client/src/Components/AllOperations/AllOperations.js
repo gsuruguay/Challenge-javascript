@@ -25,10 +25,10 @@ class AllOperation extends React.Component {
                             <td>{operation.date.slice(0, 10)}</td>
                             <td>{operation.type}</td>
                             <td>
-                                <button>
+                                <button onClick={()=>{this.props.selectOperation(operation); this.props.changeUpdateForm() }}>
                                     Modificar
                                 </button>
-                                <button>
+                                <button onClick={()=>this.props.selectOperation(operation)}>
                                     Eliminar
                                 </button>
                             </td>
