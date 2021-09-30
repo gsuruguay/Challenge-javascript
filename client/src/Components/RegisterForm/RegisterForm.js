@@ -5,7 +5,7 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.props.peticionPost}>
                 <input type="text" name="concept" placeholder="Concept" onChange={this.props.handleSubmit} />
                 <input type="text" name="amount" placeholder="Amount" onChange={this.props.handleSubmit} />
                 <input type="date" name="date" onChange={this.props.handleSubmit} />

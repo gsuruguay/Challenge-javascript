@@ -15,7 +15,7 @@ class App extends React.Component {
     balance: []
   }
 
-  async componentDidMount() {
+  peticionGet = async () =>{
     const res = await fetch('http://localhost:3333/');
     const data = await res.json();
     this.setState({
@@ -25,6 +25,20 @@ class App extends React.Component {
       balance: data.balance
     })
   }
+
+  async componentDidMount() {
+    this.peticionGet();
+  }
+/*   async componentDidMount() {
+    const res = await fetch('http://localhost:3333/');
+    const data = await res.json();
+    this.setState({
+      allOperations: data.allOperations,
+      limitOperations: data.limitOperations,
+      amountOperations: data.amountOperations,
+      balance: data.balance
+    })
+  } */
 
   render() {
     return (
@@ -36,7 +50,7 @@ class App extends React.Component {
           </Route>
 
           <Route exact path="/abm">
-            <AbmOperation allOperations={this.state.allOperations}/>
+            <AbmOperation allOperations={this.state.allOperations} peticionGet={this.peticionGet}/>
           </Route>
         </Switch>
       </div>
