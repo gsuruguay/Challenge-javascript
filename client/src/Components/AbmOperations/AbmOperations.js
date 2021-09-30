@@ -26,7 +26,8 @@ class AbmOperation extends React.Component {
                     'Operation saved successfully!',
                     'success'
                 )
-                this.props.peticionGet()
+                this.props.peticionGet();
+                this.resetForm();
             }
         } catch (error) {
             console.error(error)
@@ -48,6 +49,17 @@ class AbmOperation extends React.Component {
         console.log(this.state.form);
     }
 
+    resetForm = ()=>{
+        this.setState({
+            form:{
+                concept: "",
+                amount: "",
+                date: "",
+                type: ""
+            }
+        })
+    }
+
     render() {
 
         const { allOperations } = this.props;
@@ -65,7 +77,7 @@ class AbmOperation extends React.Component {
                         <AllOperation allOperations={egressOperations} />
                     </div>
                     <div className="cont-form">
-                        <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} />
+                        <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form}/>
                     </div>
                 </div>
             </div>
