@@ -8,7 +8,7 @@ class OperationsForm extends React.Component {
             <form /* onSubmit={this.props.peticionPut} */ onSubmit={this.props.tipoForm === "actualizar" ? this.props.peticionPut : this.props.peticionPost}
             >
                 {(this.props.tipoForm === "actualizar")?
-                    <input type="text" name="id" placeholder="Id" readOnly /* value={this.props.valueForm.id} */ value={this.props.valueForm? this.props.valueForm.id : ""}/>
+                    <input type="hidden" name="id" placeholder="Id" readOnly /* value={this.props.valueForm.id} */ value={this.props.valueForm? this.props.valueForm.id : ""}/>
                     : ""
                 }
 {/*                 <input type="text" name="id" placeholder="Id" readOnly value={this.props.valueForm.id} /> */}
