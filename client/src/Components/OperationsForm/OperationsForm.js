@@ -1,7 +1,7 @@
 import React from 'react';
-//import "./UpdateForm.css";
+//import "./OperationsForm.css";
 
-class UpdateForm extends React.Component {
+class OperationsForm extends React.Component {
 
     render() {
         return (
@@ -36,4 +36,4 @@ class UpdateForm extends React.Component {
     }
 }
 
-export default UpdateForm;
+export default OperationsForm;

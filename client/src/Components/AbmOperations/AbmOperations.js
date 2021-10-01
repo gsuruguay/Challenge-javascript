@@ -1,7 +1,7 @@
 import React from 'react';
 import AllOperation from '../AllOperations/AllOperations';
 //import RegisterForm from '../RegisterForm/RegisterForm';
-import UpdateForm from '../UpdateForm/UpdateForm';
+import OperationsForm from '../OperationsForm/OperationsForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
@@ -129,7 +129,7 @@ class AbmOperation extends React.Component {
                         <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} />
                     </div>
                     <div className="cont-form">
-                        <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm}/>
+                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm}/>
                             
 
                         
