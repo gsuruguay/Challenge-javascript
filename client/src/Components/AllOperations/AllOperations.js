@@ -27,10 +27,10 @@ class AllOperation extends React.Component {
                             <td>{operation.type}</td>
                             <td>
                                 <button onClick={()=>{this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
-                                    Modificar
+                                    Edit
                                 </button>
-                                <button>
-                                    Eliminar
+                                <button onClick={()=>{this.props.peticionDelete(operation.id) }}>
+                                    Remove
                                 </button>
                             </td>
                         </tr>

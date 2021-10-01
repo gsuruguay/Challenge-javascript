@@ -44,6 +44,33 @@ class AbmOperation extends React.Component {
         }
     }
 
+    peticionDelete = async (id) => {
+        let result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        if (result.isConfirmed) {
+            let response = await axios.delete("http://localhost:3333/deleteOperation/" + id)
+            try {
+                if (response.status === 200) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+                this.props.peticionGet();
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }
+
     peticionPut = async (e) => {
         e.preventDefault();
         let response = await axios.put("http://localhost:3333/setOperation/" + this.state.form.id, this.state.form)
@@ -93,7 +120,7 @@ class AbmOperation extends React.Component {
 
     selectOperation = (operation) => {
         this.setState({
-            tipoForm: "actualizar",
+            tipoForm: "update",
             form: {
                 id: operation.id,
                 concept: operation.concept,
@@ -110,7 +137,7 @@ class AbmOperation extends React.Component {
         })
     }
 
-    
+
 
     render() {
 
@@ -124,16 +151,16 @@ class AbmOperation extends React.Component {
                 <div className="row">
                     <div className="cont-operations">
                         <h3>Entry Operations</h3>
-                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} />
+                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
                         <h3>Egress Operations</h3>
-                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} />
+                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
                     </div>
                     <div className="cont-form">
-                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm}/>
-                            
+                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm} />
 
-                        
-{/*                         {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form} />
+
+
+                        {/*                         {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form} />
                             :
                             <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />
                         } */}
