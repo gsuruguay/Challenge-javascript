@@ -1,6 +1,5 @@
 import React from 'react';
 import AllOperation from '../AllOperations/AllOperations';
-//import RegisterForm from '../RegisterForm/RegisterForm';
 import OperationsForm from '../OperationsForm/OperationsForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
