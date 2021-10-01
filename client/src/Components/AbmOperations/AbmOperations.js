@@ -1,6 +1,6 @@
 import React from 'react';
 import AllOperation from '../AllOperations/AllOperations';
-import RegisterForm from '../RegisterForm/RegisterForm';
+//import RegisterForm from '../RegisterForm/RegisterForm';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -10,13 +10,15 @@ class AbmOperation extends React.Component {
 
     state = {
         form: {
-            id: "",
+            //id: "",
             concept: "",
             amount: "",
             date: "",
             type: ""
         },
-        isUpdateForm: false
+        isUpdateForm: false,
+        //agregado para nueva version de form
+        tipoForm: ""
     }
 
     peticionPost = async (e) => {
@@ -44,7 +46,7 @@ class AbmOperation extends React.Component {
 
     peticionPut = async (e) => {
         e.preventDefault();
-        let response = await axios.put("http://localhost:3333/setOperation/"+this.state.form.id, this.state.form)
+        let response = await axios.put("http://localhost:3333/setOperation/" + this.state.form.id, this.state.form)
         try {
             if (response.status === 200) {
                 Swal.fire(
@@ -55,6 +57,9 @@ class AbmOperation extends React.Component {
                 this.props.peticionGet();
                 this.resetForm();
                 this.changeUpdateForm(false);
+                this.setState({
+                    tipoForm: ""
+                })
             }
             console.log(response);
         } catch (error) {
@@ -75,6 +80,7 @@ class AbmOperation extends React.Component {
 
     resetForm = () => {
         this.setState({
+            tipoForm: "",
             form: {
                 id: "",
                 concept: "",
@@ -87,6 +93,7 @@ class AbmOperation extends React.Component {
 
     selectOperation = (operation) => {
         this.setState({
+            tipoForm: "actualizar",
             form: {
                 id: operation.id,
                 concept: operation.concept,
@@ -97,11 +104,13 @@ class AbmOperation extends React.Component {
         })
     }
 
-    changeUpdateForm = (estado)=>{
+    changeUpdateForm = (estado) => {
         this.setState({
             isUpdateForm: estado
         })
     }
+
+    
 
     render() {
 
@@ -115,16 +124,19 @@ class AbmOperation extends React.Component {
                 <div className="row">
                     <div className="cont-operations">
                         <h3>Entry Operations</h3>
-                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state}/>
+                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} />
                         <h3>Egress Operations</h3>
-                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm}/>
+                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} />
                     </div>
                     <div className="cont-form">
-                        {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form}  />
-                        :
-                        <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />                        
-                    }
+                        <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm}/>
+                            
+
                         
+{/*                         {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form} />
+                            :
+                            <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />
+                        } */}
                     </div>
                 </div>
             </div>

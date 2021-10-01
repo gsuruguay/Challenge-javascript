@@ -28,7 +28,7 @@ class AllOperation extends React.Component {
                                 <button onClick={()=>{this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
                                     Modificar
                                 </button>
-                                <button onClick={()=>this.props.selectOperation(operation)}>
+                                <button>
                                     Eliminar
                                 </button>
                             </td>
