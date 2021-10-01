@@ -8,7 +8,6 @@ class AllOperation extends React.Component {
             <table>
                 <thead>
                     <tr>
-                        {/* <th>#</th> */}
                         <th>Concept</th>
                         <th>Amount</th>
                         <th>Date</th>
@@ -19,17 +18,15 @@ class AllOperation extends React.Component {
                 <tbody>
                     {this.props.allOperations.map((operation, index) =>
                         <tr key={operation.id}>
-                            {/* <td>{index + 1}</td> */}
-                            {/* <td>{operation.id}</td> */}
                             <td>{operation.concept}</td>
                             <td>${operation.amount}</td>
                             <td>{operation.date.slice(0, 10)}</td>
                             <td>{operation.type}</td>
                             <td>
-                                <button onClick={()=>{this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
+                                <button onClick={() => { this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
                                     Edit
                                 </button>
-                                <button onClick={()=>{this.props.peticionDelete(operation.id) }}>
+                                <button onClick={() => { this.props.peticionDelete(operation.id) }}>
                                     Remove
                                 </button>
                             </td>

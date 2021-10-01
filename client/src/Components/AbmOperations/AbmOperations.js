@@ -9,14 +9,12 @@ class AbmOperation extends React.Component {
 
     state = {
         form: {
-            //id: "",
             concept: "",
             amount: "",
             date: "",
             type: ""
         },
         isUpdateForm: false,
-        //agregado para nueva version de form
         tipoForm: ""
     }
 
@@ -136,8 +134,6 @@ class AbmOperation extends React.Component {
         })
     }
 
-
-
     render() {
 
         const { allOperations } = this.props;
@@ -156,13 +152,6 @@ class AbmOperation extends React.Component {
                     </div>
                     <div className="cont-form">
                         <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm} />
-
-
-
-                        {/*                         {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form} />
-                            :
-                            <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />
-                        } */}
                     </div>
                 </div>
             </div>
@@ -170,4 +159,4 @@ class AbmOperation extends React.Component {
     }
 }
 
-export default AbmOperation;
+export default AbmOperation;    
