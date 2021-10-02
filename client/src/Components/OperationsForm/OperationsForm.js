@@ -20,9 +20,9 @@ class OperationsForm extends React.Component {
                 }
                 {this.props.tipoForm === "update" ?
                     <input type="submit" value="Update" />
-                    : <input type="submit" />
+                    : <input type="submit" value="Add"/>
                 }
-                <input type="reset" value="Cancelar" onClick={() => this.props.resetForm()} />
+                <input type="reset" value="Cancel" onClick={() => this.props.resetForm()} />
             </form>
         )
     }

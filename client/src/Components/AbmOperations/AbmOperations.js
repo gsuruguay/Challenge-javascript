@@ -4,7 +4,6 @@ import OperationsForm from '../OperationsForm/OperationsForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
-
 class AbmOperation extends React.Component {
 
     state = {
