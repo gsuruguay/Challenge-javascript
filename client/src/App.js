@@ -6,9 +6,8 @@ import Home from "./Components/Home/Home"
 import AbmOperation from "./Components/AbmOperations/AbmOperations";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
 import {Container} from "react-bootstrap";
-
-
 
 
 class App extends React.Component {
@@ -59,6 +58,7 @@ class App extends React.Component {
           </Route>
         </Switch>
       </Container>
+      <Footer />
       </>
     );
   }
