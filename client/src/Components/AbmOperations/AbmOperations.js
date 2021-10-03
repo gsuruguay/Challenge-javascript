@@ -143,9 +143,9 @@ class AbmOperation extends React.Component {
         let egressOperations = allOperations.filter(element => element.type === "egress");
 
         return (
-            <Container>
+            <Container fluid>
                 <Row>
-                    <Col>
+                    <Col xs={8}>
                         <h3>Entry Operations</h3>
                         <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
                         <h3>Egress Operations</h3>

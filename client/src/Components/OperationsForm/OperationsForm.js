@@ -6,6 +6,8 @@ class OperationsForm extends React.Component {
 
     render() {
         return (
+            <>
+            <h3>Form Operations</h3>
             <Form onSubmit={this.props.tipoForm === "update" ? this.props.peticionPut : this.props.peticionPost}
             >
                 {(this.props.tipoForm === "update") ?
@@ -60,6 +62,7 @@ class OperationsForm extends React.Component {
                     Cancel
                 </Button>
             </Form >
+            </>
         )
     }
 }

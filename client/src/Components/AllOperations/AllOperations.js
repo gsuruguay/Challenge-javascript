@@ -1,11 +1,12 @@
 import React from 'react';
+import {Table, Button} from "react-bootstrap";
 //import "./AllOperation.css";
 
 class AllOperation extends React.Component {
 
     render() {
         return (
-            <table>
+            <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
                         <th>Concept</th>
@@ -23,17 +24,17 @@ class AllOperation extends React.Component {
                             <td>{operation.date.slice(0, 10)}</td>
                             <td>{operation.type}</td>
                             <td>
-                                <button onClick={() => { this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
+                                <Button variant="warning" className="mb-1" onClick={() => { this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
                                     Edit
-                                </button>
-                                <button onClick={() => { this.props.peticionDelete(operation.id) }}>
+                                </Button>{' '}
+                                <Button className="mb-1" variant="danger"  onClick={() => { this.props.peticionDelete(operation.id) }}>
                                     Remove
-                                </button>
+                                </Button>
                             </td>
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
         )
     }
 }
