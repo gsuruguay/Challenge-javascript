@@ -15,9 +15,15 @@ class OperationsForm extends React.Component {
                 <input type="text" name="amount" placeholder="Amount" onChange={this.props.handleSubmit} value={this.props.valueForm ? this.props.valueForm.amount : ""} />
                 <input type="date" name="date" onChange={this.props.handleSubmit} value={this.props.valueForm ? this.props.valueForm.date : ""} />
                 {(this.props.tipoForm === "update") ?
-                    <input type="text" name="type" placeholder="Type" onChange={this.props.handleSubmit} readOnly value={this.props.valueForm ? this.props.valueForm.type : ""} />
-                    : <input type="text" name="type" placeholder="Type" onChange={this.props.handleSubmit} value={this.props.valueForm ? this.props.valueForm.type : ""} />
+                    <input type="text" name="type" placeholder="Type" readOnly value={this.props.valueForm.type} />
+                    : 
+                    <select name="type" onChange={this.props.handleSubmit} value={this.props.valueForm ? this.props.valueForm.type : ""}>
+                    <option selected>Select type</option>
+                    <option value="egress">egress</option>
+                    <option value="entry">entry</option>
+                    </select>
                 }
+
                 {this.props.tipoForm === "update" ?
                     <input type="submit" value="Update" />
                     : <input type="submit" value="Add"/>
