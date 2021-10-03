@@ -1,4 +1,6 @@
 import React from 'react';
+import {Table} from "react-bootstrap";
+
 //import "./Operation.css";
 
 class Operation extends React.Component {
@@ -6,7 +8,7 @@ class Operation extends React.Component {
     render() {
         const { limitOperations } = this.props;
         return (
-            <table>
+            <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -27,7 +29,7 @@ class Operation extends React.Component {
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
         )
     }
 }
