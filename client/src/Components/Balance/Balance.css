@@ -1,0 +1,7 @@
+.table-balance thead{
+    background-color: rgb(151, 187, 187);
+}
+.table-balance tbody{
+    background-color: rgb(160, 252, 252);
+    font-size: 2rem;
+}

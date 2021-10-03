@@ -1,13 +1,13 @@
 import React from 'react';
 import {Table} from "react-bootstrap";
-//import "./Balance.css";
+import "./Balance.css";
 
 class Balance extends React.Component {
 
     render() {
         const { amountOperations, balance } = this.props;
         return (
-            <Table striped bordered hover variant="dark">
+            <Table className="table-balance" /* striped bordered hover variant="dark" */>
                 <thead>
                     <tr>
                         <th>Total entries</th>

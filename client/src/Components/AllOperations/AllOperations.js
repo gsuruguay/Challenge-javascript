@@ -24,10 +24,10 @@ class AllOperation extends React.Component {
                             <td>{operation.date.slice(0, 10)}</td>
                             <td>{operation.type}</td>
                             <td>
-                                <Button variant="warning" className="mb-1" onClick={() => { this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
+                                <Button variant="outline-warning" className="mb-1" onClick={() => { this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
                                     Edit
                                 </Button>{' '}
-                                <Button className="mb-1" variant="danger"  onClick={() => { this.props.peticionDelete(operation.id) }}>
+                                <Button className="mb-1" variant="outline-danger"  onClick={() => { this.props.peticionDelete(operation.id) }}>
                                     Remove
                                 </Button>
                             </td>
