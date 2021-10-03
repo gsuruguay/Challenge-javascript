@@ -143,7 +143,7 @@ class AbmOperation extends React.Component {
         let egressOperations = allOperations.filter(element => element.type === "egress");
 
         return (
-            <Container fluid>
+            <Container fluid className="p-3">
                 <Row>
                     <Col xs={8}>
                         <h3>Entry Operations</h3>
