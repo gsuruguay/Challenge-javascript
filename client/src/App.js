@@ -1,7 +1,8 @@
 import React from "react";
 import './App.css';
-import Operation from "./Components/Operation/Operation";
-import Balance from "./Components/Balance/Balance";
+//import Operation from "./Components/Operation/Operation";
+//import Balance from "./Components/Balance/Balance";
+import Home from "./Components/Home/Home"
 import AbmOperation from "./Components/AbmOperations/AbmOperations";
 import { Switch, Route } from "react-router-dom";
 
@@ -45,8 +46,7 @@ class App extends React.Component {
       <div className="container">
         <Switch>
           <Route exact path="/">
-            <Balance amountOperations={this.state.amountOperations} balance={this.state.balance} />
-            <Operation limitOperations={this.state.limitOperations} />
+            <Home amountOperations={this.state.amountOperations} balance={this.state.balance}  limitOperations={this.state.limitOperations}/>
           </Route>
 
           <Route exact path="/abm">
