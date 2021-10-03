@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
         if (error) {
             res.status(500).send('Connection error')
         }
-        conn.query('SELECT id, concept, amount, date, type FROM operations', (err, operations) => {
+        conn.query('SELECT id, concept, amount, date, type FROM operations ORDER BY id DESC', (err, operations) => {
             if (err) {
                 res.status(400).json({
                     msg: 'There was an error consulting the database',
@@ -56,7 +56,7 @@ app.get("/", (req, res) => {
             console.log(amountOperations);
             console.log(balance);
 
-            //It only shows the first 10 operations
+            //It only shows 10 operations
             let limitOperations = (operations.length > 10) ? operations.slice(0, 10) : operations;
 
             res.json({
