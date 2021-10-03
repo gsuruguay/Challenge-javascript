@@ -4,6 +4,8 @@ import OperationsForm from '../OperationsForm/OperationsForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
+import {Container, Row, Col} from "react-bootstrap"
+
 class AbmOperation extends React.Component {
 
     state = {
@@ -141,6 +143,28 @@ class AbmOperation extends React.Component {
         let egressOperations = allOperations.filter(element => element.type === "egress");
 
         return (
+            <Container>
+                <Row>
+                    <Col>
+                        <h3>Entry Operations</h3>
+                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
+                        <h3>Egress Operations</h3>
+                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
+                    </Col>
+                    <Col>
+                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm} />
+                    </Col>
+                </Row>
+            </Container>
+        )
+/*     render() {
+
+        const { allOperations } = this.props;
+
+        let entryOperations = allOperations.filter(element => element.type === "entry");
+        let egressOperations = allOperations.filter(element => element.type === "egress");
+
+        return (
             <div className="container">
                 <div className="row">
                     <div className="cont-operations">
@@ -154,7 +178,10 @@ class AbmOperation extends React.Component {
                     </div>
                 </div>
             </div>
-        )
+        ) */
+
+
+
     }
 }
 
