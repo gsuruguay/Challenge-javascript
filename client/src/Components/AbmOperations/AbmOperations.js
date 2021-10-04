@@ -1,22 +1,28 @@
 import React from 'react';
 import AllOperation from '../AllOperations/AllOperations';
-import RegisterForm from '../RegisterForm/RegisterForm';
-import UpdateForm from '../UpdateForm/UpdateForm';
+import OperationsForm from '../OperationsForm/OperationsForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
-
+import { Container, Row, Col } from "react-bootstrap";
+import validacion from "../../utils";
 
 class AbmOperation extends React.Component {
 
     state = {
         form: {
-            id: "",
             concept: "",
             amount: "",
             date: "",
             type: ""
         },
-        isUpdateForm: false
+        isUpdateForm: false,
+        tipoForm: "",
+        fails: {
+            concept: "Concept is requerid",
+            amount: "Amount is requerid",
+            date: "Date is requerid",
+            type: "Type is requerid"
+        }
     }
 
     peticionPost = async (e) => {
@@ -42,9 +48,36 @@ class AbmOperation extends React.Component {
         }
     }
 
+    peticionDelete = async (id) => {
+        let result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        })
+        if (result.isConfirmed) {
+            let response = await axios.delete("http://localhost:3333/deleteOperation/" + id)
+            try {
+                if (response.status === 200) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+                this.props.peticionGet();
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }
+
     peticionPut = async (e) => {
         e.preventDefault();
-        let response = await axios.put("http://localhost:3333/setOperation/"+this.state.form.id, this.state.form)
+        let response = await axios.put("http://localhost:3333/setOperation/" + this.state.form.id, this.state.form)
         try {
             if (response.status === 200) {
                 Swal.fire(
@@ -55,8 +88,10 @@ class AbmOperation extends React.Component {
                 this.props.peticionGet();
                 this.resetForm();
                 this.changeUpdateForm(false);
+                this.setState({
+                    tipoForm: ""
+                })
             }
-            console.log(response);
         } catch (error) {
             console.error(error)
         }
@@ -67,14 +102,17 @@ class AbmOperation extends React.Component {
             form: {
                 ...this.state.form,
                 [e.target.name]: e.target.value
-            }
+            },
+            fails: validacion({
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            })
         });
-        console.log(this.state.form);
-        console.log(this.state.isUpdateForm);
     }
 
     resetForm = () => {
         this.setState({
+            tipoForm: "",
             form: {
                 id: "",
                 concept: "",
@@ -87,6 +125,7 @@ class AbmOperation extends React.Component {
 
     selectOperation = (operation) => {
         this.setState({
+            tipoForm: "update",
             form: {
                 id: operation.id,
                 concept: operation.concept,
@@ -97,7 +136,7 @@ class AbmOperation extends React.Component {
         })
     }
 
-    changeUpdateForm = (estado)=>{
+    changeUpdateForm = (estado) => {
         this.setState({
             isUpdateForm: estado
         })
@@ -111,23 +150,19 @@ class AbmOperation extends React.Component {
         let egressOperations = allOperations.filter(element => element.type === "egress");
 
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="cont-operations">
+            <Container fluid className="p-3">
+                <Row>
+                    <Col xs={8}>
                         <h3>Entry Operations</h3>
-                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state}/>
+                        <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
                         <h3>Egress Operations</h3>
-                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm}/>
-                    </div>
-                    <div className="cont-form">
-                        {this.state.isUpdateForm ? <UpdateForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} valueForm={this.state.form}  />
-                        :
-                        <RegisterForm handleSubmit={this.handleSubmit} peticionPost={this.peticionPost} valueForm={this.state.form} />                        
-                    }
-                        
-                    </div>
-                </div>
-            </div>
+                        <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
+                    </Col>
+                    <Col>
+                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm} fails={this.state.fails} />
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
