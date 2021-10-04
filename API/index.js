@@ -5,12 +5,14 @@ const utils = require("./utils");
 
 const app = express();
 
+require('dotenv').config();
+
 app.use(myConnection(mysql, {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    port: 3306,
-    database: 'challenge-alkemy-js'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+    database: process.env.DB_DATABASE
 }, 'single'))
 
 //Settings
