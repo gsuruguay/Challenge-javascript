@@ -3,8 +3,8 @@ import AllOperation from '../AllOperations/AllOperations';
 import OperationsForm from '../OperationsForm/OperationsForm';
 import axios from "axios";
 import Swal from 'sweetalert2';
-
-import {Container, Row, Col} from "react-bootstrap"
+import {Container, Row, Col} from "react-bootstrap";
+import validacion from "../../utils";
 
 class AbmOperation extends React.Component {
 
@@ -16,7 +16,13 @@ class AbmOperation extends React.Component {
             type: ""
         },
         isUpdateForm: false,
-        tipoForm: ""
+        tipoForm: "",
+        fails: {
+            concept: "Concept is requerid",
+            amount: "Amount is requerid",
+            date: "Date is requerid",
+            type: "Type is requerid"
+        }
     }
 
     peticionPost = async (e) => {
@@ -97,10 +103,14 @@ class AbmOperation extends React.Component {
             form: {
                 ...this.state.form,
                 [e.target.name]: e.target.value
-            }
+            },
+            fails: validacion({
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            })            
         });
         console.log(this.state.form);
-        console.log(this.state.isUpdateForm);
+        console.log(this.state.fails);
     }
 
     resetForm = () => {
@@ -152,7 +162,7 @@ class AbmOperation extends React.Component {
                         <AllOperation allOperations={egressOperations} selectOperation={this.selectOperation} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
                     </Col>
                     <Col>
-                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm} />
+                        <OperationsForm handleSubmit={this.handleSubmit} peticionPut={this.peticionPut} peticionPost={this.peticionPost} valueForm={this.state.form} tipoForm={this.state.tipoForm} resetForm={this.resetForm} fails={this.state.fails}/>
                     </Col>
                 </Row>
             </Container>
