@@ -16,9 +16,9 @@
 
 *  Listado de operaciones registradas según su tipo (ingreso o egreso).
 
-![Imagen de listado Ingresos](https://i.postimg.cc/G2DsQCB1/Home.jpg)
+![Imagen de listado Ingresos](https://i.postimg.cc/Xvp5rF4q/entry.jpg)
 
-![Imagen de listado Egresos](https://i.postimg.cc/G2DsQCB1/Home.jpg)
+![Imagen de listado Egresos](https://i.postimg.cc/CKXqk1xN/egress.jpg)
 
 *  Desde el listado, se debe poder modificar o eliminar una operación registrada previamente.
 *  No es posible modificar el tipo de operación (ingreso o egreso) una vez creada.
