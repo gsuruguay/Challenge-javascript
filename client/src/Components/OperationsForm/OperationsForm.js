@@ -1,7 +1,5 @@
 import React from 'react';
 import { Form, Button } from "react-bootstrap";
-//import "./OperationsForm.css";
-
 
 class OperationsForm extends React.Component {
 
@@ -55,20 +53,19 @@ class OperationsForm extends React.Component {
                                 <option value="entry">entry</option>
                             </Form.Select>
                             {this.props.fails.type ? <Form.Text className="text-muted">
-                            {this.props.fails.type}
-                        </Form.Text> : ""}
+                                {this.props.fails.type}
+                            </Form.Text> : ""}
                         </Form.Group>
                     }
 
-                    {
-                        this.props.tipoForm === "update" ?
-                            <Button variant="warning" type="submit">
-                                Update
-                            </Button>
+                    {this.props.tipoForm === "update" ?
+                        <Button variant="warning" type="submit">
+                            Update
+                        </Button>
 
-                            : <Button variant="success" type="submit">
-                                Add
-                            </Button>
+                        : <Button variant="success" type="submit">
+                            Add
+                        </Button>
                     }
 
                     <Button variant="secondary" type="reset" className="m-3" onClick={() => this.props.resetForm()}>

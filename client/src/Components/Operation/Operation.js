@@ -1,8 +1,6 @@
 import React from 'react';
 import {Table} from "react-bootstrap";
 
-//import "./Operation.css";
-
 class Operation extends React.Component {
 
     render() {

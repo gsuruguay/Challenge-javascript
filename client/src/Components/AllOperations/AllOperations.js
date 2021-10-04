@@ -1,6 +1,5 @@
 import React from 'react';
-import {Table, Button} from "react-bootstrap";
-//import "./AllOperation.css";
+import { Table, Button } from "react-bootstrap";
 
 class AllOperation extends React.Component {
 
@@ -27,7 +26,7 @@ class AllOperation extends React.Component {
                                 <Button variant="outline-warning" className="mb-1" onClick={() => { this.props.selectOperation(operation); this.props.changeUpdateForm(true) }}>
                                     Edit
                                 </Button>{' '}
-                                <Button className="mb-1" variant="outline-danger"  onClick={() => { this.props.peticionDelete(operation.id) }}>
+                                <Button className="mb-1" variant="outline-danger" onClick={() => { this.props.peticionDelete(operation.id) }}>
                                     Remove
                                 </Button>
                             </td>

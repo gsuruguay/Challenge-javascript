@@ -1,7 +1,7 @@
 import React from 'react';
 import Operation from "../Operation/Operation";
 import Balance from "../Balance/Balance";
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 class Home extends React.Component {
 

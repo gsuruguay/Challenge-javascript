@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table} from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import "./Balance.css";
 
 class Balance extends React.Component {
@@ -7,7 +7,7 @@ class Balance extends React.Component {
     render() {
         const { amountOperations, balance } = this.props;
         return (
-            <Table className="table-balance" /* striped bordered hover variant="dark" */>
+            <Table className="table-balance">
                 <thead>
                     <tr>
                         <th>Total entries</th>
