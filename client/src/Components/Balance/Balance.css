@@ -5,3 +5,8 @@
     background-color: rgb(160, 252, 252);
     font-size: 2rem;
 }
+@media only screen and (max-width: 576px){
+    .table-balance tbody{
+        font-size: 1.5rem;
+    }
+}

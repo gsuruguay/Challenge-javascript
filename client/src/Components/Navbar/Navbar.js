@@ -10,7 +10,7 @@ class NavBar extends React.Component {
           <Navbar.Brand href="/">My finances</Navbar.Brand>
           <Nav className="justify-content-end">
             <Nav.Link href="/" >BALANCE</Nav.Link>
-            <Nav.Link className="ml-1" href="/abm">ABM-OPERATIONS</Nav.Link>
+            <Nav.Link className="ml-1" href="/abm">ABM</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

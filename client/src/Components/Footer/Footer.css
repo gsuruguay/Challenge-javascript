@@ -23,3 +23,8 @@ footer img:hover{
     filter: drop-shadow(0 2px 5px rgba(255, 255, 255, 0.87));
     transform: scale(1.4);
 }
+@media only screen and (max-width: 576px){
+    footer{
+        /* bottom: 0; */
+    }
+}
