@@ -5,7 +5,7 @@ const utils = require("./utils");
 
 const app = express();
 
-app.use(myConnection(mysql, { // A ESTO DEBO HACER VARIABLE DE ENTORNOS
+app.use(myConnection(mysql, {
     host: 'localhost',
     user: 'root',
     password: '',
@@ -20,12 +20,7 @@ app.set("port", process.env.PORT || 3333)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//cors
-/* app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-}); */
+//Cors
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Credentials', 'true');
@@ -46,15 +41,12 @@ app.get("/", (req, res) => {
                     err
                 })
             }
-            console.log(operations)
 
             let amountOperations = operations.reduce((count, elem) => {
                 count[elem.type] = (count[elem.type] || 0) + elem.amount
                 return count
             }, {});
             let balance = amountOperations.entry - amountOperations.egress;
-            console.log(amountOperations);
-            console.log(balance);
 
             //It only shows 10 operations
             let limitOperations = (operations.length > 10) ? operations.slice(0, 10) : operations;
@@ -69,30 +61,9 @@ app.get("/", (req, res) => {
     })
 })
 
-app.get("/operations", (req, res) => {
-    req.getConnection((error, conn) => {
-        if (error) {
-            res.status(500).send('Connection error')
-        }
-        conn.query('SELECT id, concept, amount, date, type FROM operations', (err, operation) => {
-            if (err) {
-                res.status(400).json({
-                    msg: 'There was an error consulting the operations',
-                    err
-                })
-            }
-            console.log(operation)
-            res.json({
-                operation
-            })
-        })
-    })
-})
-
 app.post("/createOperation", (req, res) => {
     const newOperation = req.body;
     if (!utils.isValidFormCreate(newOperation)) {
-        console.log("fallo el formulario de create");
         res.status(400).json({
             msg: "The form contains incorrect data"
         })
@@ -110,7 +81,6 @@ app.post("/createOperation", (req, res) => {
                     })
                     return
                 }
-                console.log(operation);
                 res.status(200).json({
                     msg: 'Operation saved successfully'
                 })
@@ -122,10 +92,8 @@ app.post("/createOperation", (req, res) => {
 app.put("/setOperation/:id", (req, res) => {
     const { id } = req.params
     const setOperation = req.body
-    console.log(setOperation);
 
     if (!utils.isValidFormUpdate(setOperation)) {
-        console.log("fallo el formulario");
         res.status(400).json({
             msg: "The form contains incorrect data"
         })
@@ -143,7 +111,6 @@ app.put("/setOperation/:id", (req, res) => {
                     })
                     return
                 }
-                console.log(operation);
                 res.status(200).json({
                     msg: 'Successfully modified operation'
                 })
@@ -166,7 +133,6 @@ app.delete("/deleteOperation/:id", (req, res) => {
                     err
                 })
             }
-            console.log(operation);
             res.status(200).json({
                 msg: 'Operation removed successfully'
             })
