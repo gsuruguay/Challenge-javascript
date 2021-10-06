@@ -152,7 +152,7 @@ class AbmOperation extends React.Component {
         return (
             <Container fluid className="p-3">
                 <Row>
-                    <Col xs={8}>
+                    <Col xs={12} md={8}>
                         <h3>Entry Operations</h3>
                         <AllOperation allOperations={entryOperations} selectOperation={this.selectOperation} isUpdateForm={this.state} changeUpdateForm={this.changeUpdateForm} peticionDelete={this.peticionDelete} />
                         <h3>Egress Operations</h3>

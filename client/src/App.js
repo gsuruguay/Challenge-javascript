@@ -4,7 +4,6 @@ import AbmOperation from "./Components/AbmOperations/AbmOperations";
 import NavBar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import { Switch, Route } from "react-router-dom";
-import { Container } from "react-bootstrap";
 import './App.css';
 
 class App extends React.Component {
@@ -34,7 +33,7 @@ class App extends React.Component {
     return (
       <>
         <NavBar />
-        <Container className="mt-5">
+        <div className="mt-5 pt-3">
           <Switch>
             <Route exact path="/">
               <Home amountOperations={this.state.amountOperations} balance={this.state.balance} limitOperations={this.state.limitOperations} />
@@ -44,7 +43,7 @@ class App extends React.Component {
               <AbmOperation allOperations={this.state.allOperations} peticionGet={this.peticionGet} />
             </Route>
           </Switch>
-        </Container>
+        </div>
         <Footer />
       </>
     );

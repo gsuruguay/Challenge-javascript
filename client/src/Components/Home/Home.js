@@ -7,7 +7,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <Container className="p-3">
+            <Container className="p-1">
                 <h3>Current balance</h3>
                 <Balance amountOperations={this.props.amountOperations} balance={this.props.balance} />
                 <h3>Last 10 operations</h3>
