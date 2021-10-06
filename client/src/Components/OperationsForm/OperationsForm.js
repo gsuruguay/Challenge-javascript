@@ -48,7 +48,7 @@ class OperationsForm extends React.Component {
                         <Form.Group className="mb-3" controlId="type">
                             <Form.Label>Type</Form.Label>
                             <Form.Select name="type" onChange={this.props.handleSubmit} value={this.props.valueForm ? this.props.valueForm.type : ""}>
-                                <option selected>Select type</option>
+                                <option>Select type</option>
                                 <option value="egress">egress</option>
                                 <option value="entry">entry</option>
                             </Form.Select>
