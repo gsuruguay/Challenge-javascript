@@ -33,7 +33,7 @@ class App extends React.Component {
     return (
       <>
         <NavBar />
-        <div className="mt-5 pt-3">
+        <div className="mt-5 mb-4 pt-3">
           <Switch>
             <Route exact path="/">
               <Home amountOperations={this.state.amountOperations} balance={this.state.balance} limitOperations={this.state.limitOperations} />
